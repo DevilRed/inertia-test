@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Todo;
 
 class TodoController extends Controller
 {
@@ -27,7 +28,11 @@ class TodoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Todo::create([
+            'task' => $request->input('task'),
+        ]);
+
+        return redirect()->to('/');
     }
 
     /**
