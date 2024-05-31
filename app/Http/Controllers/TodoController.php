@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Todo;
+use App\Http\Requests\TodoStoreRequest;
 
 class TodoController extends Controller
 {
@@ -26,7 +27,7 @@ class TodoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(TodoStoreRequest $request)
     {
         Todo::create([
             'task' => $request->input('task'),
