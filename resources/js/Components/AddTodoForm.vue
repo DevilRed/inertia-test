@@ -10,10 +10,20 @@
                 type="text"
                 v-model="todoForm.task"
             />
+
+            <small
+                v-if="todoForm.errors['task']"
+                class="text-red-500 mt-2 block"
+            >
+                {{ todoForm.errors['task']}}
+            </small>
         </div>
 
         <div>
-            <button class="px-6 py-1.5 bg-indigo-600 rounded text-white">
+            <button
+                class="px-6 py-1.5 bg-indigo-600  rounded text-white disabled:opacity-50"
+                :disabled="todoForm.processing"
+            >
                 Add
             </button>
         </div>
