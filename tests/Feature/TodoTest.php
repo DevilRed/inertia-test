@@ -33,4 +33,34 @@ class TodoTest extends TestCase
             )
         );
     }
+
+    // testing in more traditional way comparing result with db
+    public function test_can_complete_todo()
+    {
+        $todo = Todo::factory()->create([
+            'is_done' => false,
+        ]);
+
+        $response = $this->put(route('todos.update', $todo), [
+            'is_done' => true,
+        ]);
+
+        $response->assertRedirect('/');
+        $this->assertDatabaseHas('todos', [
+            'id' => $todo->id,
+            'is_done' => true,
+        ]);
+    }
+
+    public function test_can_delete_todo()
+    {
+        $todo = Todo::factory()->create();
+
+        $response = $this->delete(route('todos.destroy', $todo));
+
+        $response->assertRedirect('/');
+        $this->assertDatabaseMissing('todos', [
+            'id' => $todo->id,
+        ]);
+    }
 }
